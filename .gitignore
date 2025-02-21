@@ -6,6 +6,10 @@ __pycache__/
 # Ignorera virtuella miljön
 .venv/
 
+# school repos
+Python_OPA24_code_along_main
+Python_OPA24-main
+
 # C extensions
 *.so
 
