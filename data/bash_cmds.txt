@@ -1,0 +1,63 @@
+Öppna filer
+
+och
+
+Redigera filer
+
+I övrigt har jag skrivit ned följande (som jag antar är rätt):
+
+Användbara kommandon:
+echo | Skrivs framför kommando för att förhandstitta på vad som händer när det körs.
+Reset | nollställer aktuell terminal.
+set –x / set +x | (på/av) Skriver ut namn på kommando före det körs.
+alias | Skrivs in och visar aktuella alias för olika kommandon inom Bash
+script | Spela in terminalsession (avsluta med exit).
+
+Navigation (i filstruktur)
+cd | Gå till annan mapp
+cd .. | Hoppa ned en mapp i hierarkin (En punkt anger nuvarande mapp, 2 föräldrarmappen)
+cd - | Hoppa till föregående mapp (ångrafunktion).
+cd /boot/grub | Gå till mapp /boot/grub genom absolut sökväg (markeras via inledande / )
+cd musik | Börja i root mappen och gå till mappen /root/musik (relativ, utan / i början).
+
+ls | Visa mappar och filer.
+ls – alt sträng | Visa filer som matchar namnet på strängen (Jockertecken visar fler filer)
+ls -1 | Visar rättigheter, filstorlekar, ändringsdatum och ägare.
+ls –a | Alla filer, inklusive gömda som börjar med en punkt, visas.
+ls –d | Visar enbart mappar, inte filer. (ls –d sträng* , ls –d */ , ls –d /usr/*/*/doc)
+ls –F | Lägga till tecken för olika typer av filer, ex *(asterisk) för körbara filer.
+ls –S | Sortera utdata i bokstavs- och storleksordning.
+ls –R | Visar innehåll rekursivt, dvs allt innehåll i mappar i mappen.
+pwd | (Print working directory) visar absolut sökväg för den mapp man befinner sig i.
+
+tree | Visar grafiskt träd med början i den mapp man befinner sig i. Visar alla mappar och filer i mappen man står i.
+
+Söka
+find | Letar efter filer på hårddisk. Flertal alternativ för anpassning. Fungerar med vanliga jokertecken och med reguljära uttryck. .
+find / -name filnamn | Söker efter fil med namn ”filnamn med början i roten.
+find / -iname filnamn | Hittar alla förekomster oberoende av teckentyp.
+-regex eller –iregex | Används för sökning via reguljära uttryck. (Första tar hänsyn till versaler och gemener, dvs samma som name/iname).
+-exec | Ger möjlighet till mer avancerade sökningar. Exempel: find / -name ’*.doc’ –exec cp ’{}’ /tmp/ ‘;’ som söker efter filer med filändelse .doc och kopierar dessa till mappen /tmp. Används för att utföra kommandon på filer som hittats. Apostrofer (’ ’)Används för att förhindra att Bash tolkar det som kommandon. Måsvingeparentesen {} används för att benämna den fil som hittats, byts ut mot filnamnet. ; används för att signalera slutet på kommandona.
+
+-path | Används för att exkludera en specifik mapp, fungerar med jokertecken.
+-prune | Exkludera mappar i mappen.
+find / -path ’/mnt/win’ –prune -0 –name ”string” –print | Söker i hela filträdet, exkluderar en mapp och dess undermappar. Går att använda valfritt antal –path med argument.
+
+locate sträng | (alt. mlocate i Ubuntu/Fedora) Används för att snabbt hitta en fil eller mapp, Skriver ut lista med alla filer som matchar sökningen, dvs innehåller sökordet. (Måste uppdatera databas före körning)
+updatedb | Uppdaterar indexerade databasen som locate använder., körs som root.
+sudo updatedb | Kör kommandot med administratörsrättigheter.
+
+whereis programnamn | Söker efter körbara filer, källkod och manualsidor för ett visst program. Visar enbart exakta träffar, dvs måste veta exakta namnet.
+which programnamn | Nästan samma som whereis, förutom att det enbart söker efter körbara filer. Söker enbart i miljövariabeln $PATH (använd –a för att se alla förekomster av ett programnamn, visar fler om det finns fler än ett)
+
+Starta program
+programnamn | Att skriva in programnamnet är det vanligaste sättet att starta ett program.
+./namn | Starta ett program i aktuell katalog.
+/user/bin/namn | Peka ut vart programmet befinner sig via absolut sökväg.
+
+Installera program
+yum | Körs som rootanvändare eller genom tillägget sudo (kräver tillgång till paketförråd)
+yum update | Laddar ned och installerar uppdaterade paket (nya versioner).
+yum install paketnamn | Installerar ett nytt paket
+yum remove paketnamn | Raderar ett paket.
+yum list ”*sökord*” | Söker efter paket som innehåller sökord.
